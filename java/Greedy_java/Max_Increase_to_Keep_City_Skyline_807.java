@@ -10,15 +10,6 @@ import java.io.*;
 // import java.math.*;
 public class Max_Increase_to_Keep_City_Skyline_807 {
 
-    // logic is we store sum of all vowels come after curr vowels
-    // initital we have [1,1,1,1,1] n==1
-    // n==2 ,both index including
-    // dp[0 or a]= previous dp[0-4]
-    // dp[1 or e]= previous dp[1-4]
-    // dp[2 or i]= previous dp[2-4]
-    // dp[3 or o]= previous dp[3-4]
-    // dp[4 or u]= previous dp[4-4]
-
     public int maxIncreaseKeepingSkyline(int[][] g) {
         int m = g.length, n = g[0].length;
         int[] row = new int[m];
