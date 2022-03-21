@@ -8,8 +8,6 @@ public:
         vector<int> u(n);
         u[0] = 1;
 
-        pair<int, vector<int *>> help;
-
         /*
             our algo is we want only the number that multiple of 2,3 or 5 so
             we make an array of n size and add 1 default init
@@ -20,35 +18,20 @@ public:
             for suppose i=2,u[2]=3,so u[i]*2=6 and j=1,u[1]=2,so u[j]*3=6  both give 6 so we increse both i and j index
 
         */
+        int two, three, five;
         for (int i = 0, j = 0, k = 0, fill = 1; fill < n; fill++)
         {
-            help.first = u[i] * 2;
-            help.second = {&i};
-            if (u[j] * 3 <= help.first)
-            {
-                if (u[j] * 3 == help.first)
-                    help.second.push_back(&j);
-                else
-                {
-                    help.first = u[j] * 3;
-                    help.second = {&j};
-                }
-            }
-            if (u[k] * 5 <= help.first)
-            {
-                if (u[k] * 5 == help.first)
-                    help.second.push_back(&k);
-                else
-                {
-                    help.first = u[k] * 5;
-                    help.second = {&k};
-                }
-            }
+            two = 2 * u[i];
+            three = 3 * u[j];
+            five = 5 * u[k];
 
-            // we make vector of pointer although to access that pointer we 0 index than its gives us the pointer we want
-            for (auto it : help.second)
-                it[0]++;
-            u[fill] = help.first;
+            u[fill] = min({two, three, five});
+            if (u[fill] == two)
+                i++;
+            if (u[fill] == three)
+                j++;
+            if (u[fill] == five)
+                k++;
         }
         return u[n - 1];
     }
