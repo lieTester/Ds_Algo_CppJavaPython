@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-// this can be done by bipartite dfs but this you get to know about uinon find solution of bipartite.
 class Solution
 {
 public:
