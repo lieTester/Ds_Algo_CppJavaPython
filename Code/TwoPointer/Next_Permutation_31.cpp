@@ -4,7 +4,7 @@ class Solution
 {
 public:
     /*
-        from end we look for sudden break in incresing oreder from (left <<==to== right)
+        from end we look for sudden break in incresing order from (left <<==to== right)
         if there is:
             1 then we took the break index and look the greater elements from nums[breakindex]<nums[(left <<==to== right)].
             2 after we get first we swap both of then, sort all elem after breakindex.

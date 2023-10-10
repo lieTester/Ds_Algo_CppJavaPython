@@ -1,13 +1,13 @@
 {
     "files.associations": {
-        "new": "cpp",
-        "deque": "cpp",
-        "string": "cpp",
-        "vector": "cpp",
-        "ostream": "cpp",
         "algorithm": "cpp",
-        "tuple": "cpp",
-        "bitset": "cpp",
-        "chrono": "cpp"
+        "string_view": "cpp",
+        "regex": "cpp",
+        "chrono": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "valarray": "cpp",
+        "iostream": "cpp",
+        "initializer_list": "cpp"
     }
 }
