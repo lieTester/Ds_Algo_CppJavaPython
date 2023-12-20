@@ -1,24 +1,61 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <fstream>
+#include <vector>
 using namespace std;
-class Solution
-{
+
+class Solution {
 public:
-    
-    int getMaxLen(int val)
-    {
-        return val*21;
+    vector<string> processString(const string& input) {
+        vector<string> chunks;
+        string cleanedString;
+
+        // Removing new lines
+        for (char c : input) {
+            if (c != '\n') {
+                cleanedString += c;
+            }
+        }
+
+        // Splitting into 2000 character chunks
+        const int chunkSize = 2000;
+        size_t start = 0;
+        while (start < cleanedString.size()) {
+            size_t end = start + chunkSize;
+            if (end >= cleanedString.size()) {
+                chunks.push_back(cleanedString.substr(start));
+            } else {
+                while (end > start && cleanedString[end - 1] != '.') {
+                    --end;
+                }
+                chunks.push_back(cleanedString.substr(start, end - start));
+                start = end;
+            }
+        }
+
+        return chunks;
     }
 };
-int main()
-{
+
+int main() {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
     Solution obj;
-    vector<int> n2 = {1, -2, 3, -4, -5, 6};
-    int val;
-    cin>>val;
-    cout << obj.getMaxLen(val);
+    ifstream file("input.txt");
+    string inputData, line;
+
+    // Read the entire file
+    while (getline(file, line)) {
+        inputData += line + "\n";
+    }
+
+    vector<string> processedData = obj.processString(inputData);
+
+    // Printing chunks
+    for (const string& chunk : processedData) {
+        cout << chunk << endl;
+    }
+
     return 0;
 }
