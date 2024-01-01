@@ -9,7 +9,7 @@ const output = fs.createWriteStream("./output.txt", { flags: "w" });
 const originalLog = console.log;
 console.log = (...messages) => {
    messages.forEach((message) => {
-      originalLog(message);
+      // originalLog(message);
       output.write(`${message} `);
    });
    output.write(`\n`);
@@ -20,52 +20,52 @@ console.log = (...messages) => {
 class Solution {
    constructor() {}
 
-   canFinish(nCrs, pre) {
-      const adj = {};
-      for (let i = 0; i < nCrs; i++) {
-         adj[i] = [];
+   // Function to compute maxProfit
+   maxProfit(k, prices) {
+      const n = prices.length;
+      if (n <= 1 || k === 0) {
+         return 0;
       }
 
-      for (const [node1, node2] of pre) {
-         adj[node1].push(node2);
+      const dp = Array.from({ length: k + 1 }, () => Array(n).fill(0));
+
+      for (let transaction = 1; transaction <= k; transaction++) {
+         let maxMoneyAfterBuying = -prices[0];
+
+         console.log(`Transaction ${transaction}:`);
+         console.log(`Day 0: maxMoneyAfterBuying = ${maxMoneyAfterBuying}`);
+
+         for (let day = 1; day < n; day++) {
+            let profitIfSellToday = prices[day] + maxMoneyAfterBuying;
+            let profitIfDoNothingToday = dp[transaction][day - 1];
+            dp[transaction][day] = Math.max(
+               profitIfDoNothingToday,
+               profitIfSellToday
+            );
+
+            let potentialProfitFromPreviousTransactionMinusCurrentPrice =
+               dp[transaction - 1][day] - prices[day];
+            maxMoneyAfterBuying = Math.max(
+               maxMoneyAfterBuying,
+               potentialProfitFromPreviousTransactionMinusCurrentPrice
+            );
+
+            console.log(
+               `Day ${day}: maxMoneyAfterBuying = ${maxMoneyAfterBuying}, ProfitoftheDay = ${dp[transaction][day]}`
+            );
+         }
+         console.log(
+            `Transaction ${transaction} Result: ${dp[transaction][n - 1]}`
+         );
       }
 
-      const calc = [];
-      const vis = new Array(nCrs).fill(false);
-
-      function dfs(node) {
-         if (calc.includes(node)) {
-            return true;
-         }
-         if (vis[node]) {
-            return false;
-         }
-
-         vis[node] = true;
-
-         for (const i of adj[node]) {
-            if (!dfs(i)) {
-               return false;
-            }
-         }
-         vis[node] = false;
-         calc.push(node);
-
-         return true;
-      }
-
-      for (let i = 0; i < nCrs; i++) {
-         if (!dfs(i)) {
-            return false;
-         }
-      }
-
-      return true;
+      return dp[k][n - 1];
    }
 }
-
+const prices = [3, 2, 6, 5, 0, 3];
+const k = 2;
 const ob = new Solution();
-const ans = ob.canFinish(2, [[1, 0]]);
+const ans = ob.maxProfit(k, prices);
 
 // Your console.log output will be redirected to output.txt from here
 console.log(ans);
